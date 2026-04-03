@@ -1,0 +1,35 @@
+Table book {
+    id int [pk, increment]
+    title string
+    author string
+    isbn string
+    img_url string
+    user_id int [ref:> user.id]
+
+}
+
+Table category {
+    id int [pk, increment]
+    name string
+}
+
+Table bookCategory {
+    id int [pk, increment]
+    book_id int [ref:> book.id]
+    category_id int [ref:> category.id]
+}
+
+Table review {
+    id int [pk, increment]
+    book_id int [ref:> book.id]
+    user_id int [ref:> user.id]
+    rating int
+    comment string
+    post_date date
+
+}
+
+Table user {
+    id int [pk, increment]
+    
+}
