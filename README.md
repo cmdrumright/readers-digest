@@ -42,6 +42,41 @@ urlpatterns = [
 ]
 ```
 
+### Seeding database
+
+add fixtures to api (books.json)
+
+```json
+[
+  {
+    "model": "digestapi.book",
+    "pk": 1,
+    "fields": {
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "isbn": "9780425080023",
+      "img_url": "https://m.media-amazon.com/images/S/compressedphotogoodreads.com/books/1568298892i/117899.jpg",
+      "user": 2
+    }
+  }
+]
+```
+
+run a bash script to remake the database and load fixtures
+
+```bash
+#!/bin/bash
+
+rm db.sqlite3
+rm -rf ./digestapi/migrations
+python3 manage.py migrate
+python3 manage.py makemigrations digestapi
+python3 manage.py migrate digestapi
+python3 manage.py loaddata users
+python3 manage.py loaddata tokens
+python3 manage.py loaddata books
+```
+
 ## Testing
 
 ### Register
