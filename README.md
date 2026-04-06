@@ -19,3 +19,53 @@ class Book(models.Model):
         "Category", through="BookCategory", related_name="books"
     )
 ```
+
+### Using viewset
+
+```py
+class UserViewSet(viewsets.ViewSet):
+    queryset = User.objects.all()
+    permission_classes = [permissions.AllowAny]
+
+    @action(detail=False, methods=['post'], url_path='register')
+    def register_account(self, request):
+        ...
+
+    @action(detail=False, methods=['post'], url_path='login')
+    def user_login(self, request):
+        ...
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('login', UserViewSet.as_view({'post': 'user_login'}), name='login'),
+    path('register', UserViewSet.as_view({'post': 'register_account'}), name='register'),
+]
+```
+
+## Testing
+
+### Register
+
+```bash
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{
+    "username": "meg@ducharme.com",
+    "password": "ducharme",
+    "first_name": "Meg",
+    "last_name": "Ducharme"
+}' \
+  'http://localhost:8000/register' | jq
+```
+
+### Login
+
+```bash
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{
+    "username": "meg@ducharme.com",
+    "password": "ducharme"
+}' \
+  'http://localhost:8000/login' | jq
+```
