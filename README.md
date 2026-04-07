@@ -118,3 +118,35 @@ curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
 curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
 'http://localhost:8000/categories/1' | jq
 ```
+
+### Get All Books
+
+```bash
+curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+'http://localhost:8000/books' | jq
+```
+
+### Create Book with categories
+
+```bash
+curl --header "Content-Type: application/json" \
+  --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+  --request POST \
+  --data '{
+    "title": "The Neverending Story",
+    "author": "Edwin R. Billows",
+    "isbn": "8573282904",
+    "img_url": "http://www.allbooks.com/neverendingstory/images/cover.png",
+    "categories": [3, 5]
+}' \
+  'http://localhost:8000/books' | jq
+```
+
+### Delete Book
+
+```bash
+curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+--request "DELETE" \
+'http://localhost:8000/books/2' | jq
+
+```

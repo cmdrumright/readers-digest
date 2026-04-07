@@ -19,8 +19,8 @@ class BookSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "author",
-            "isbn_number",
-            "cover_image",
+            "isbn",
+            "img_url",
             "is_owner",
             "categories",
         ]
@@ -46,8 +46,8 @@ class BookViewSet(viewsets.ViewSet):
         # Get the data from the client's JSON payload
         title = request.data.get("title")
         author = request.data.get("author")
-        isbn_number = request.data.get("isbn_number")
-        cover_image = request.data.get("cover_image")
+        isbn = request.data.get("isbn")
+        img_url = request.data.get("img_url")
 
         # Create a book database row first, so you have a
         # primary key to work with
@@ -55,8 +55,8 @@ class BookViewSet(viewsets.ViewSet):
             user=request.user,
             title=title,
             author=author,
-            cover_image=cover_image,
-            isbn_number=isbn_number,
+            img_url=img_url,
+            isbn=isbn,
         )
 
         # Establish the many-to-many relationships
@@ -78,8 +78,8 @@ class BookViewSet(viewsets.ViewSet):
             if serializer.is_valid():
                 book.title = serializer.validated_data["title"]
                 book.author = serializer.validated_data["author"]
-                book.isbn_number = serializer.validated_data["isbn_number"]
-                book.cover_image = serializer.validated_data["cover_image"]
+                book.isbn = serializer.validated_data["isbn"]
+                book.img_url = serializer.validated_data["img_url"]
                 book.save()
 
                 category_ids = request.data.get("categories", [])

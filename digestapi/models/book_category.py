@@ -8,4 +8,4 @@ class BookCategory(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="categories"
     )
-    timestamp = models.DateTimeField()
+    # timestamp = models.DateTimeField()
