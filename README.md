@@ -104,3 +104,17 @@ curl --header "Content-Type: application/json" \
 }' \
   'http://localhost:8000/login' | jq
 ```
+
+### Get All Categories
+
+```bash
+curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+'http://localhost:8000/categories' | jq
+```
+
+### Get 1 Category
+
+```bash
+curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+'http://localhost:8000/categories/1' | jq
+```
