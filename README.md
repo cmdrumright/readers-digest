@@ -202,3 +202,25 @@ curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
 'http://localhost:8000/books/2' | jq
 
 ```
+
+### Update a book ?
+
+```bash
+curl --header "Content-Type: application/json"   --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4"   --request PUT   --data '{
+    "title": "The Neverending Story",
+    "author": "Edwin R. Billows",
+    "isbn": "8573282904",
+    "img_url": "http://www.allbooks.com/neverendingstory/images/cover.png",
+    "categories": [3, 4]
+}'   'http://localhost:8000/books/3' | jq
+```
+
+```bash
+curl --header "Content-Type: application/json"   --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4"   --request PUT   --data '{
+    "title": "The Neverending Story",
+    "author": "Edwin R. Billows",
+    "isbn": "8573282904",
+    "img_url": "http://www.allbooks.com/neverendingstory/images/cover.png",
+    "categories": [{"id":3,"name":"Myster"} ]
+}'   'http://localhost:8000/books/3' | jq
+```
