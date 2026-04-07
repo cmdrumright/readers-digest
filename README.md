@@ -42,6 +42,58 @@ urlpatterns = [
 ]
 ```
 
+### Using a serializer method
+
+```py
+class BookSerializer(serializers.ModelSerializer):
+    is_owner = serializers.SerializerMethodField()
+    categories = CategorySerializer(many=True)
+
+    def get_is_owner(self, obj):
+        # Check if the authenticated user is the owner
+        return self.context["request"].user == obj.user
+
+    class Meta:
+        model = Book
+        fields = [
+            "id",
+            "title",
+            "author",
+            "isbn",
+            "img_url",
+            "is_owner",
+            "categories",
+        ]
+```
+
+### Setting the many-to-many values on create
+
+```py
+def create(self, request):
+        # Get the data from the client's JSON payload
+        title = request.data.get("title")
+        author = request.data.get("author")
+        isbn = request.data.get("isbn")
+        img_url = request.data.get("img_url")
+
+        # Create a book database row first, so you have a
+        # primary key to work with
+        book = Book.objects.create(
+            user=request.user,
+            title=title,
+            author=author,
+            img_url=img_url,
+            isbn=isbn,
+        )
+
+        # Establish the many-to-many relationships
+        category_ids = request.data.get("categories", [])
+        book.categories.set(category_ids)
+
+        serializer = BookSerializer(book, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+```
+
 ### Seeding database
 
 add fixtures to api (books.json)
