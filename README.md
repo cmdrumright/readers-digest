@@ -197,7 +197,7 @@ curl --header "Content-Type: application/json" \
 ### Delete Book
 
 ```bash
-curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+curl --header "Authorization: Token d74b97fbe905134520bb236b0016703f50380dcf" \
 --request "DELETE" \
 'http://localhost:8000/books/2' | jq
 
@@ -221,6 +221,43 @@ curl --header "Content-Type: application/json"   --header "Authorization: Token 
     "author": "Edwin R. Billows",
     "isbn": "8573282904",
     "img_url": "http://www.allbooks.com/neverendingstory/images/cover.png",
-    "categories": [{"id":3,"name":"Myster"} ]
-}'   'http://localhost:8000/books/3' | jq
+    "categories": [{"id":3},{"id":4}]
+}'   'http://localhost:8000/books/2' | jq
+```
+
+### Create Review with categories
+
+```bash
+curl --header "Content-Type: application/json" \
+  --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+  --request POST \
+  --data '{
+    "book_id": 1,
+    "rating": 4,
+    "comment": "A very cool book"
+}' \
+  'http://localhost:8000/reviews' | jq
+```
+
+### Get All Reviews
+
+```bash
+curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+'http://localhost:8000/reviews' | jq
+```
+
+### Get 1 Review
+
+```bash
+curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+'http://localhost:8000/reviews/1' | jq
+```
+
+### Delete Review
+
+```bash
+curl --header "Authorization: Token ec7ddcc665035a3adeaa80ed8f812bfe3ef5b5f4" \
+--request "DELETE" \
+'http://localhost:8000/reviews/1' | jq
+
 ```

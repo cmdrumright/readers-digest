@@ -11,4 +11,4 @@ class Review(models.Model):
         default=5, validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
     comment = models.CharField(max_length=200)
-    post_date = models.DateField()
+    post_date = models.DateField(auto_now_add=True)
